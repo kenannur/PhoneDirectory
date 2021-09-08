@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApi.Data", "ContactA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApi.Shared", "ContactApi.Shared\ContactApi.Shared.csproj", "{32BDB1B6-7D89-4DD0-97F0-7B0E1C92A354}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApi.Messaging.Producer", "ContactApi.Messaging.Producer\ContactApi.Messaging.Producer.csproj", "{06D5EB59-AB3A-4C79-952B-E2BB45C23065}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{32BDB1B6-7D89-4DD0-97F0-7B0E1C92A354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32BDB1B6-7D89-4DD0-97F0-7B0E1C92A354}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32BDB1B6-7D89-4DD0-97F0-7B0E1C92A354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06D5EB59-AB3A-4C79-952B-E2BB45C23065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06D5EB59-AB3A-4C79-952B-E2BB45C23065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06D5EB59-AB3A-4C79-952B-E2BB45C23065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06D5EB59-AB3A-4C79-952B-E2BB45C23065}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

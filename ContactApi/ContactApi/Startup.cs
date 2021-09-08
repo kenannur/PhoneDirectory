@@ -1,6 +1,9 @@
 using System;
 using ContactApi.Data.Context;
 using ContactApi.Data.Repository;
+using ContactApi.Messaging.Producer.Client;
+using ContactApi.Messaging.Producer.Settings;
+using ContactApi.Shared.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +26,8 @@ namespace ContactApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureSettings<IRabbitMqSettings, RabbitMqSettings>(Configuration);
+
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("Default"));
@@ -31,6 +36,8 @@ namespace ContactApi
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IContactRepository, ContactRepository>();
+
+            services.AddSingleton<IQueueProducer, QueueProducer>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
