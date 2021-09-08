@@ -1,8 +1,6 @@
 using System;
-using System.Reflection;
 using ContactApi.Data.Context;
 using ContactApi.Data.Repository;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +28,6 @@ namespace ContactApi
                 options.UseNpgsql(Configuration.GetConnectionString("Default"));
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IContactRepository, ContactRepository>();
