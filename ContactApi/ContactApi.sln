@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.810.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApi", "ContactApi\ContactApi.csproj", "{3314FF24-561D-4E13-9DF0-EB70CBE08234}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApi.Data", "ContactApi.Repository\ContactApi.Data.csproj", "{B3AFB7DB-5228-453B-8D8B-200D9B0430E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApi.Data", "ContactApi.Data\ContactApi.Data.csproj", "{B3AFB7DB-5228-453B-8D8B-200D9B0430E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApi.Shared", "ContactApi.Shared\ContactApi.Shared.csproj", "{32BDB1B6-7D89-4DD0-97F0-7B0E1C92A354}"
 EndProject
