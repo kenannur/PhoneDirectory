@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using ContactApi.Data.Repository;
+using ContactApi.Messaging.Producer.Client;
 using ContactApi.Models.Request;
 using ContactApi.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,13 @@ namespace ContactApi.Controllers
     {
         private readonly IRepository<ContactInformation> _repository;
         private readonly IMapper _mapper;
+        private readonly IQueueProducer _queueProducer;
 
-        public ContactInformationsController(IRepository<ContactInformation> repository, IMapper mapper)
+        public ContactInformationsController(IRepository<ContactInformation> repository, IMapper mapper, IQueueProducer queueProducer)
         {
             _repository = repository;
             _mapper = mapper;
+            _queueProducer = queueProducer;
         }
 
         [HttpPost]
@@ -45,6 +48,14 @@ namespace ContactApi.Controllers
             }
             await _repository.DeleteAsync(entity, cancellationToken);
             return Ok();
+        }
+
+        [HttpPost("CreateReport")]
+        public IActionResult CreateReport()
+        {
+            var reportRequestId = Guid.NewGuid().ToString();
+            _queueProducer.SendReportRequest(reportRequestId);
+            return Ok($"Your report request queued. Report Name = {reportRequestId}");
         }
     }
 }

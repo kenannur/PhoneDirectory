@@ -18,7 +18,7 @@ namespace ContactApi.Messaging.Producer.Client
             CreateConnection();
         }
 
-        public void SendReportRequest()
+        public void SendReportRequest(string requestId)
         {
             if (ConnectionExists())
             {
@@ -27,7 +27,7 @@ namespace ContactApi.Messaging.Producer.Client
 
                 var body = Encoding.UTF8.GetBytes(new ReportRequest
                 {
-                    Id = Guid.NewGuid().ToString()
+                    Id = requestId
                 }.ToJson());
 
                 channel.BasicPublish(exchange: string.Empty, routingKey: _settings.QueueName, basicProperties: null, body: body);
@@ -54,7 +54,7 @@ namespace ContactApi.Messaging.Producer.Client
 
         private bool ConnectionExists()
         {
-            if (_connection is not null)
+            if (_connection is not null && _connection.IsOpen)
             {
                 return true;
             }
