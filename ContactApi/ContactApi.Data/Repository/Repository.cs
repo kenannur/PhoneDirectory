@@ -31,7 +31,7 @@ namespace ContactApi.Data.Repository
 
         public async Task<TEntity> GetAsync(object id, CancellationToken cancellationToken = default)
         {
-            return await Context.Set<TEntity>().FindAsync(id, cancellationToken);
+            return await Context.Set<TEntity>().FindAsync(new object[] { id }, cancellationToken);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
