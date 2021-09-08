@@ -10,7 +10,7 @@ namespace ContactApi.Models.Request
         public Guid ContactId { get; set; }
 
         [Required]
-        public InformationType Type { get; set; }
+        public ContactType Type { get; set; }
 
         [Required]
         public string Value { get; set; }

@@ -6,12 +6,12 @@ namespace ContactApi.Shared.Entities
     {
         public Guid ContactId { get; set; }
 
-        public InformationType Type { get; set; }
+        public ContactType Type { get; set; }
 
         public string Value { get; set; }
     }
 
-    public enum InformationType
+    public enum ContactType
     {
         Unknown = 0,
         PhoneNumber = 1,

@@ -12,12 +12,12 @@ namespace ContactApi.Data.Context
 
         static AppDbContext()
         {
-            NpgsqlConnection.GlobalTypeMapper.MapEnum<InformationType>();
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<ContactType>();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasPostgresEnum<InformationType>();
+            modelBuilder.HasPostgresEnum<ContactType>();
         }
 
         public DbSet<Contact> Contacts { get; set; }

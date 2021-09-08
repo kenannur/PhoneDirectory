@@ -25,7 +25,7 @@ namespace ContactApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AddContactInformationRequest request, CancellationToken cancellationToken)
         {
-            if (request.Type == InformationType.Unknown)
+            if (request.Type == ContactType.Unknown)
             {
                 return BadRequest("Type cannot be 0");
             }
