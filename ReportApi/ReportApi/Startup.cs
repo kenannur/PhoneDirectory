@@ -1,9 +1,15 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using ReportApi.Data.Context;
+using ReportApi.Data.Repository;
+using ReportApi.Messaging.Consumer.Client;
+using ReportApi.Messaging.Consumer.Settings;
+using ReportApi.Shared.Extensions;
 
 namespace ReportApi
 {
@@ -18,6 +24,18 @@ namespace ReportApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureSettings<IRabbitMqSettings, RabbitMqSettings>(Configuration);
+
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("Default"));
+            });
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IContactInformationRepository, ContactInformationRepository>();
+
+            services.AddSingleton<IQueueConsumer, QueueConsumer>();
+            services.AddHostedService<WorkerService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
