@@ -2,6 +2,6 @@
 {
     public interface IQueueProducer
     {
-        void SendReportRequest(string requestId);
+        bool SendReportRequest(string requestId);
     }
 }

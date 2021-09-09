@@ -18,7 +18,7 @@ namespace ContactApi.Messaging.Producer.Client
             CreateConnection();
         }
 
-        public void SendReportRequest(string requestId)
+        public bool SendReportRequest(string requestId)
         {
             if (ConnectionExists())
             {
@@ -31,7 +31,9 @@ namespace ContactApi.Messaging.Producer.Client
                 }.ToJson());
 
                 channel.BasicPublish(exchange: string.Empty, routingKey: _settings.QueueName, basicProperties: null, body: body);
+                return true;
             }
+            return false;
         }
 
         private void CreateConnection()

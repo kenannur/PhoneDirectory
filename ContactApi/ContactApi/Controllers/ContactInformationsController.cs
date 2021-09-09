@@ -54,8 +54,11 @@ namespace ContactApi.Controllers
         public IActionResult CreateReport()
         {
             var reportRequestId = Guid.NewGuid().ToString();
-            _queueProducer.SendReportRequest(reportRequestId);
-            return Ok($"Your report request queued. Report Name = {reportRequestId}");
+            if (_queueProducer.SendReportRequest(reportRequestId))
+            {
+                return Ok($"Your report request queued. Report Name = {reportRequestId}");
+            }
+            return StatusCode(500, "Could not connect to ReportQueue. Please try again later");
         }
     }
 }
