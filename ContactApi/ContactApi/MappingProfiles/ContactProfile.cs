@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ContactApi.Models.Request;
+using ContactApi.Models.Response;
 using ContactApi.Shared.Entities;
 
 namespace ContactApi.MappingProfiles
@@ -10,6 +11,10 @@ namespace ContactApi.MappingProfiles
         {
             CreateMap<AddContactRequest, Contact>();
             CreateMap<UpdateContactRequest, Contact>();
+
+            CreateMap<Contact, AddContactResponse>();
+            CreateMap<Contact, UpdateContactResponse>();
+            CreateMap<Contact, GetContactResponse>();
         }
     }
 }

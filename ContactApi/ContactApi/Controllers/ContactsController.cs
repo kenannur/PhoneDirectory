@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using ContactApi.Data.Repository;
 using ContactApi.Models.Request;
+using ContactApi.Models.Response;
 using ContactApi.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +28,7 @@ namespace ContactApi.Controllers
         public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
         {
             var result = await _repository.GetAllAsync(cancellationToken);
-            return Ok(result);
+            return Ok(_mapper.Map<List<GetContactResponse>>(result));
         }
 
         [HttpGet("{id}")]
@@ -37,7 +39,7 @@ namespace ContactApi.Controllers
             {
                 return NotFound(id);
             }
-            return Ok(result);
+            return Ok(_mapper.Map<GetContactResponse>(result));
         }
 
         [HttpGet("Detail/{id}")]
@@ -57,7 +59,7 @@ namespace ContactApi.Controllers
             var contact = _mapper.Map<Contact>(request);
             contact.Id = Guid.NewGuid();
             contact = await _repository.AddAsync(contact, cancellationToken);
-            return Ok(contact);
+            return Ok(_mapper.Map<AddContactResponse>(contact));
         }
 
         [HttpPut]
@@ -65,7 +67,7 @@ namespace ContactApi.Controllers
         {
             var contact = _mapper.Map<Contact>(request);
             contact = await _repository.UpdateAsync(contact, cancellationToken);
-            return Ok(contact);
+            return Ok(_mapper.Map<UpdateContactResponse>(contact));
         }
 
         [HttpDelete("{id}")]

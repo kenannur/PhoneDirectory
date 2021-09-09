@@ -5,6 +5,7 @@ using AutoMapper;
 using ContactApi.Data.Repository;
 using ContactApi.Messaging.Producer.Client;
 using ContactApi.Models.Request;
+using ContactApi.Models.Response;
 using ContactApi.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +36,7 @@ namespace ContactApi.Controllers
             var entity = _mapper.Map<ContactInformation>(request);
             entity.Id = Guid.NewGuid();
             entity = await _repository.AddAsync(entity, cancellationToken);
-            return Ok(entity);
+            return Ok(_mapper.Map<AddContactInformationResponse>(entity));
         }
 
         [HttpDelete("{id}")]
