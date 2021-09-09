@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using ContactApi.Data.Repository;
-using ContactApi.Messaging.Producer.Client;
 using ContactApi.Models.Request;
 using ContactApi.Models.Response;
 using ContactApi.Shared.Entities;
@@ -17,13 +16,11 @@ namespace ContactApi.Controllers
     {
         private readonly IRepository<ContactInformation> _repository;
         private readonly IMapper _mapper;
-        private readonly IQueueProducer _queueProducer;
 
-        public ContactInformationsController(IRepository<ContactInformation> repository, IMapper mapper, IQueueProducer queueProducer)
+        public ContactInformationsController(IRepository<ContactInformation> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _queueProducer = queueProducer;
         }
 
         [HttpPost]
@@ -49,17 +46,6 @@ namespace ContactApi.Controllers
             }
             await _repository.DeleteAsync(entity, cancellationToken);
             return Ok();
-        }
-
-        [HttpPost("CreateReport")]
-        public IActionResult CreateReport()
-        {
-            var reportRequestId = Guid.NewGuid().ToString();
-            if (_queueProducer.SendReportRequest(reportRequestId))
-            {
-                return Ok($"Your report request queued. Report Name = {reportRequestId}");
-            }
-            return StatusCode(500, "Could not connect to ReportQueue. Please try again later");
         }
     }
 }
