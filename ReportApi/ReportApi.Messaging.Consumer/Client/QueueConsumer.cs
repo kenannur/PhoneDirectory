@@ -21,10 +21,10 @@ namespace ReportApi.Messaging.Consumer.Client
             using var scope = _ssFactory.CreateScope();
             var repository = scope.ServiceProvider.GetRequiredService<IContactInformationRepository>();
 
-            var locationInfos = repository.GetLocationInformations();
-            var orderedLocationGroups = locationInfos.GroupBy(x => x.Value)
-                                                .OrderByDescending(x => x.Count())
-                                                .ToList();
+            var orderedLocationGroups = repository.GetLocationInformations()
+                                                  .GroupBy(x => x.Value)
+                                                  .OrderByDescending(x => x.Count())
+                                                  .ToList();
 
             var orderedLocations = orderedLocationGroups.Select(x => x.Key);
 
@@ -40,18 +40,22 @@ namespace ReportApi.Messaging.Consumer.Client
                 Count = repository.GetPhoneNumbersCountAt(x.Key)
             });
 
-            var report = new Report();
-            report.LocationInformationFromMostToLeast = orderedLocations.ToList();
-            report.NumberOfPeopleRegisteredAt = registeredPeoples.ToList();
-            report.NumberOfPhoneRegisteredAt = registeredPhones.ToList();
+            var jReport = new Report
+            {
+                LocationInformationFromMostToLeast = orderedLocations.ToList(),
+                NumberOfPeopleRegisteredAt = registeredPeoples.ToList(),
+                NumberOfPhoneRegisteredAt = registeredPhones.ToList()
+            }.ToJson();
 
-            var jReport = report.ToJson();
-
-            var fileDirectory = Directory.GetCurrentDirectory();
-            var fullPath = Path.Combine(fileDirectory, $"{request.Id}.json");
-            File.WriteAllText(fullPath, jReport);
+            UploadReport(request.Id, jReport);
         }
 
+        private static void UploadReport(string reportName, string reportContent)
+        {
+            var fileDirectory = Directory.GetCurrentDirectory();
+            var fullPath = Path.Combine(fileDirectory, $"{reportName}.json");
+            File.WriteAllText(fullPath, reportContent);
+        }
 
     }
 }
