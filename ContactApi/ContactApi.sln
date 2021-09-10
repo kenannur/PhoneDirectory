@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApi.Messaging.Produc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApi.Data.Faker", "ContactApi.Data.Faker\ContactApi.Data.Faker.csproj", "{FB700318-0F3C-45D9-B034-AD74D91AD49F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApi.Test", "ContactApi.Test\ContactApi.Test.csproj", "{445E1C2E-88B9-4EBF-8F4D-31EAB7BA1B9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{FB700318-0F3C-45D9-B034-AD74D91AD49F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB700318-0F3C-45D9-B034-AD74D91AD49F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB700318-0F3C-45D9-B034-AD74D91AD49F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{445E1C2E-88B9-4EBF-8F4D-31EAB7BA1B9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{445E1C2E-88B9-4EBF-8F4D-31EAB7BA1B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{445E1C2E-88B9-4EBF-8F4D-31EAB7BA1B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{445E1C2E-88B9-4EBF-8F4D-31EAB7BA1B9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
