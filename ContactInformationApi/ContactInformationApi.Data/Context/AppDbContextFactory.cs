@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
@@ -10,7 +9,7 @@ namespace ContactInformationApi.Data.Context
         public AppDbContext CreateDbContext(string[] args)
         {
             var configurationRoot = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath("/Users/kenannur/GitHub/PhoneDirectory/ContactInformationApi/ContactInformationApi")
                 .AddJsonFile("appsettings.json")
                 .Build();
 
