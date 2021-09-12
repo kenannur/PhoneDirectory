@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using ContactInformationApi.Data.Context;
 using ContactInformationApi.Shared.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactInformationApi.Data.Repository
 {
@@ -10,6 +13,13 @@ namespace ContactInformationApi.Data.Repository
         public ContactInformationRepository(AppDbContext context)
             : base(context)
         { }
+
+        public async Task<IEnumerable<ContactInformation>> GetContactInformationsAsync(Guid contactId)
+        {
+            return await Context.ContactInformations
+                .Where(x => x.ContactId == contactId)
+                .ToListAsync();
+        }
 
         public IEnumerable<ContactInformation> GetLocationInformations()
         {

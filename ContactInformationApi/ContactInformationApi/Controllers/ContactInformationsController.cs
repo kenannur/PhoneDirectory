@@ -23,6 +23,13 @@ namespace ContactInformationApi.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("{contactId}")]
+        public async Task<IActionResult> Get(Guid contactId, CancellationToken cancellationToken)
+        {
+            var entities = await _repository.GetContactInformationsAsync(contactId);
+            return Ok(entities);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AddContactInformationRequest request, CancellationToken cancellationToken)
         {
