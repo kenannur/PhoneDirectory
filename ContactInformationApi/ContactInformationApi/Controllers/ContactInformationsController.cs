@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using ContactInformationApi.Data.Repository;
+using ContactInformationApi.Models;
 using ContactInformationApi.Models.Request;
 using ContactInformationApi.Models.Response;
 using ContactInformationApi.Shared.Entities;
@@ -53,6 +55,39 @@ namespace ContactInformationApi.Controllers
             }
             await _repository.DeleteAsync(entity, cancellationToken);
             return Ok();
+        }
+
+        [HttpPost("CreateReport")]
+        public async Task<IActionResult> CreateReportAsync(CancellationToken cancellationToken)
+        {
+            var locationInformations = await _repository.GetLocationInformationsAsync();
+
+            var orderedLocationGroups = locationInformations.GroupBy(x => x.Value)
+                                                            .OrderByDescending(x => x.Count())
+                                                            .ToList();
+
+            var orderedLocations = orderedLocationGroups.Select(x => x.Key);
+
+            var registeredPeoples = orderedLocationGroups.Select(x => new RegisteredPeopleInfo
+            {
+                Location = x.Key,
+                Count = x.Count()
+            });
+
+            var registeredPhones = orderedLocationGroups.Select(x => new RegisteredPhoneInfo
+            {
+                Location = x.Key,
+                Count = _repository.GetPhoneNumbersCountAt(x.Key)
+            });
+
+            var report = new Report
+            {
+                LocationInformationFromMostToLeast = orderedLocations.ToList(),
+                NumberOfPeopleRegisteredAt = registeredPeoples.ToList(),
+                NumberOfPhoneRegisteredAt = registeredPhones.ToList()
+            };
+
+            return Ok(report);
         }
     }
 }

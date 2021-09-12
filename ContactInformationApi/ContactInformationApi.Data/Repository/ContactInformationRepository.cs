@@ -21,11 +21,11 @@ namespace ContactInformationApi.Data.Repository
                 .ToListAsync();
         }
 
-        public IEnumerable<ContactInformation> GetLocationInformations()
+        public async Task<IEnumerable<ContactInformation>> GetLocationInformationsAsync()
         {
-            return Context.ContactInformations
+            return await Context.ContactInformations
                 .Where(x => x.Type == ContactType.Location)
-                .ToList();
+                .ToListAsync();
         }
 
         public int GetPhoneNumbersCountAt(string location)

@@ -9,7 +9,7 @@ namespace ContactInformationApi.Data.Repository
     {
         Task<IEnumerable<ContactInformation>> GetContactInformationsAsync(Guid contactId);
 
-        IEnumerable<ContactInformation> GetLocationInformations();
+        Task<IEnumerable<ContactInformation>> GetLocationInformationsAsync();
 
         int GetPhoneNumbersCountAt(string location);
     }
