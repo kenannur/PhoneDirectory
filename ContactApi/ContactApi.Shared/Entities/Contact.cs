@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ContactApi.Shared.Entities
+﻿namespace ContactApi.Shared.Entities
 {
     public class Contact : EntityBase
     {
@@ -9,7 +7,5 @@ namespace ContactApi.Shared.Entities
         public string LastName { get; set; }
 
         public string Firm { get; set; }
-
-        public virtual List<ContactInformation> Informations { get; set; }
     }
 }

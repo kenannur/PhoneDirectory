@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using ContactApi.Data.Context;
+using ContactApi.Data.Faker;
 using ContactApi.Data.Repository;
 using ContactApi.Messaging.Producer.Client;
 using ContactApi.Messaging.Producer.Settings;

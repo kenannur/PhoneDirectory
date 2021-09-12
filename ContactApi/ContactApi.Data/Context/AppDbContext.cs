@@ -1,6 +1,6 @@
-﻿using ContactApi.Shared.Entities;
+﻿using ContactApi.Data.Faker;
+using ContactApi.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 
 namespace ContactApi.Data.Context
 {
@@ -10,18 +10,6 @@ namespace ContactApi.Data.Context
             : base(options)
         { }
 
-        static AppDbContext()
-        {
-            NpgsqlConnection.GlobalTypeMapper.MapEnum<ContactType>();
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.HasPostgresEnum<ContactType>();
-        }
-
         public DbSet<Contact> Contacts { get; set; }
-
-        public DbSet<ContactInformation> ContactInformations { get; set; }
     }
 }

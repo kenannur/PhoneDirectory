@@ -8,6 +8,7 @@ using ContactApi.Controllers;
 using ContactApi.Data.Faker;
 using ContactApi.Data.Repository;
 using ContactApi.MappingProfiles;
+using ContactApi.Messaging.Producer.Client;
 using ContactApi.Models.Request;
 using ContactApi.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,7 @@ namespace ContactApi.Test
     public class ContactsController_Test
     {
         private readonly Mock<IContactRepository> _mockOfContactRepository;
+        private readonly Mock<IQueueProducer> _mockOfQueueProducer;
         private readonly IMapper _mapper;
 
         public ContactsController_Test()
@@ -28,6 +30,7 @@ namespace ContactApi.Test
             _mapper = new Mapper(configuration);
 
             _mockOfContactRepository = new Mock<IContactRepository>();
+            _mockOfQueueProducer = new Mock<IQueueProducer>();
         }
 
         [Fact]
@@ -38,7 +41,7 @@ namespace ContactApi.Test
             _mockOfContactRepository.Setup(x => x.GetAllAsync(cts.Token))
                                     .Returns(GetFakeContacts());
 
-            var contactsController = new ContactsController(_mockOfContactRepository.Object, _mapper);
+            var contactsController = new ContactsController(_mockOfContactRepository.Object, _mapper, _mockOfQueueProducer.Object);
             var actionResult = await contactsController.GetAllAsync(cts.Token);
             Assert.IsType<OkObjectResult>(actionResult);
         }
@@ -55,7 +58,7 @@ namespace ContactApi.Test
             _mockOfContactRepository.Setup(x => x.GetAsync(invalidId, cts.Token))
                                     .Returns(GetNullContact());
 
-            var contactsController = new ContactsController(_mockOfContactRepository.Object, _mapper);
+            var contactsController = new ContactsController(_mockOfContactRepository.Object, _mapper, _mockOfQueueProducer.Object);
             var validActionResult = await contactsController.GetAsync(validId, cts.Token);
             Assert.IsType<OkObjectResult>(validActionResult);
 
@@ -72,16 +75,16 @@ namespace ContactApi.Test
             _mockOfContactRepository.Setup(x => x.AddAsync(It.IsAny<Contact>(), cts.Token))
                                     .Returns(GetFakeContact());
 
-            var contactsController = new ContactsController(_mockOfContactRepository.Object, _mapper);
+            var contactsController = new ContactsController(_mockOfContactRepository.Object, _mapper, _mockOfQueueProducer.Object);
             var actionResult = await contactsController.PostAsync(GetContactRequest(), cts.Token);
             Assert.IsType<OkObjectResult>(actionResult);
         }
 
         private static Task<IEnumerable<Contact>> GetFakeContacts()
-            => Task.FromResult(FakeDataGenerator.Prepare().Item1.AsEnumerable());
+            => Task.FromResult(FakeDataGenerator.Prepare().AsEnumerable());
         
         private static Task<Contact> GetFakeContact()
-            => Task.FromResult(FakeDataGenerator.Prepare().Item1.FirstOrDefault());
+            => Task.FromResult(FakeDataGenerator.Prepare().FirstOrDefault());
         
         private static Task<Contact> GetNullContact()
             => Task.FromResult<Contact>(null);

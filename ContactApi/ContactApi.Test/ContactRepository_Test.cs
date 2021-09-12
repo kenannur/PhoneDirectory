@@ -20,10 +20,10 @@ namespace ContactApi.Test
             new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(databaseName: "PhoneDirectory").Options;
 
         [Fact]
-        public async Task ContactRepository_GetAllAsync_GetContactWithDetailsAsync()
+        public async Task ContactRepository_GetAllAsync()
         {
             var context = new AppDbContext(GetDbContextOptions());
-            var (fakeContacts, _) = FakeDataGenerator.Prepare();
+            var fakeContacts = FakeDataGenerator.Prepare();
             await context.AddRangeAsync(fakeContacts);
             await context.SaveChangesAsync();
 
@@ -31,10 +31,6 @@ namespace ContactApi.Test
             var result = await contactRepository.GetAllAsync();
 
             Assert.Equal(fakeContacts.Count, result.Count());
-
-            var contactWithDetails = await contactRepository.GetContactWithDetailsAsync(fakeContacts.FirstOrDefault().Id);
-            Assert.NotNull(contactWithDetails);
-            Assert.NotNull(contactWithDetails.Informations);
         }
 
         [Fact]

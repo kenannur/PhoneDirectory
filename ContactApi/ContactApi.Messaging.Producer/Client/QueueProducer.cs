@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using ContactApi.Messaging.Producer.Models;
 using ContactApi.Messaging.Producer.Settings;
 using ContactApi.Shared.Extensions;
 using RabbitMQ.Client;
@@ -18,16 +17,16 @@ namespace ContactApi.Messaging.Producer.Client
             CreateConnection();
         }
 
-        public bool SendReportRequest(string requestId)
+        public bool DeleteContactInformations(Guid contactId)
         {
             if (ConnectionExists())
             {
                 using var channel = _connection.CreateModel();
                 channel.QueueDeclare(queue: _settings.QueueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
 
-                var body = Encoding.UTF8.GetBytes(new ReportRequest
+                var body = Encoding.UTF8.GetBytes(new
                 {
-                    Id = requestId
+                    ContactId = contactId
                 }.ToJson());
 
                 channel.BasicPublish(exchange: string.Empty, routingKey: _settings.QueueName, basicProperties: null, body: body);

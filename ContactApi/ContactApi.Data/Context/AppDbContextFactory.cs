@@ -10,7 +10,7 @@ namespace ContactApi.Data.Context
         public AppDbContext CreateDbContext(string[] args)
         {
             var configurationRoot = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath("/Users/kenannur/GitHub/PhoneDirectory/ContactApi/ContactApi")
                 .AddJsonFile("appsettings.json")
                 .Build();
 

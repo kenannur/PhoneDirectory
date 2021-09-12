@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ContactApi.Messaging.Producer.Client;
 using ContactApi.Messaging.Producer.Settings;
 using Moq;
@@ -16,7 +17,7 @@ namespace ContactApi.Test
         public void QueueProducer_SendReportRequest(IRabbitMqSettings settings, bool expected)
         {
             var queueProducer = new QueueProducer(settings);
-            var result = queueProducer.SendReportRequest(It.IsAny<string>());
+            var result = queueProducer.DeleteContactInformations(It.IsAny<Guid>());
             Assert.Equal(expected, result);
         }
 
