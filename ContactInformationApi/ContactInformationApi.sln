@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactInformationApi.Share
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactInformationApi.Data", "ContactInformationApi.Data\ContactInformationApi.Data.csproj", "{BA837E11-615C-41AD-A70E-F6549C7A81F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactInformationApi.Data.Faker", "ContactInformationApi.Data.Faker\ContactInformationApi.Data.Faker.csproj", "{4F46865F-B65C-4283-AFD3-F53BB51FEB94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BA837E11-615C-41AD-A70E-F6549C7A81F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA837E11-615C-41AD-A70E-F6549C7A81F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA837E11-615C-41AD-A70E-F6549C7A81F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F46865F-B65C-4283-AFD3-F53BB51FEB94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F46865F-B65C-4283-AFD3-F53BB51FEB94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F46865F-B65C-4283-AFD3-F53BB51FEB94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F46865F-B65C-4283-AFD3-F53BB51FEB94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
