@@ -24,4 +24,9 @@
     <Folder Include="Models\Response\" />
     <Folder Include="Models\Request\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AggregatorApi.Shared\AggregatorApi.Shared.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

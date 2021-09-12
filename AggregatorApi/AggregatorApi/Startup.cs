@@ -1,5 +1,6 @@
-﻿using AggregatorApi.Messaging.Producer.Client;
-using AggregatorApi.Messaging.Producer.Settings;
+﻿using System.Text.Json;
+using AggregatorApi.HttpClients;
+using AggregatorApi.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,9 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using AggregatorApi.Shared.Extensions;
-using AggregatorApi.HttpClients;
-using AggregatorApi.Settings;
-using System.Text.Json;
 
 namespace AggregatorApi
 {
@@ -24,13 +22,10 @@ namespace AggregatorApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureSettings<IRabbitMqSettings, RabbitMqSettings>(Configuration);
             services.ConfigureSettings<IExternalApiSettings, ExternalApiSettings>(Configuration);
 
             services.AddHttpClient<IContactHttpClient, ContactHttpClient>();
             services.AddHttpClient<IContactInformationHttpClient, ContactInformationHttpClient>();
-
-            services.AddSingleton<IQueueProducer, QueueProducer>();
 
             services.AddControllers()
                     .AddJsonOptions(options =>
