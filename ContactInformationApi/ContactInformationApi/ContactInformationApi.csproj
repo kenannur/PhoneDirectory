@@ -28,5 +28,8 @@
     <ProjectReference Include="..\ContactInformationApi.Data\ContactInformationApi.Data.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\ContactInformationApi.Messaging.Consumer\ContactInformationApi.Messaging.Consumer.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

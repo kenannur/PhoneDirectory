@@ -40,5 +40,15 @@ namespace ContactInformationApi.Data.Repository
             var result = phoneQuery.Count();
             return result;
         }
+
+        public void DeleteContactInformations(Guid contactId)
+        {
+            var details = Context.ContactInformations
+                .Where(x => x.ContactId == contactId)
+                .ToList();
+
+            Context.ContactInformations.RemoveRange(details);
+            Context.SaveChanges();
+        }
     }
 }
