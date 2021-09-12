@@ -2,5 +2,6 @@
   <Items>
     <Item>ContactApi/ContactApi.sln</Item>
     <Item>ReportApi/ReportApi.sln</Item>
+    <Item>ContactInformationApi/ContactInformationApi.sln</Item>
   </Items>
 </WorkspaceItem>
