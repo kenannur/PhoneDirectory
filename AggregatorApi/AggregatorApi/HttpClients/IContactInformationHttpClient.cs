@@ -14,5 +14,7 @@ namespace AggregatorApi.HttpClients
         Task<string> PostAsync(AddContactInformationRequest request, CancellationToken cancellationToken);
 
         Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+
+        Task<string> CreateReportAsync(string id, CancellationToken cancellationToken);
     }
 }

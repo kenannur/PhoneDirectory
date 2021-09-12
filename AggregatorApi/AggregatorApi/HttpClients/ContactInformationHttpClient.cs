@@ -15,6 +15,7 @@ namespace AggregatorApi.HttpClients
     public class ContactInformationHttpClient : IContactInformationHttpClient
     {
         private readonly HttpClient _httpClient;
+        private const string requestBaseUri = "ContactInformations";
 
         public ContactInformationHttpClient(HttpClient httpClient, IExternalApiSettings externalApiSettings)
         {
@@ -24,7 +25,7 @@ namespace AggregatorApi.HttpClients
 
         public async Task<IEnumerable<ContactInformationsResponse>> GetAsync(Guid contactId, CancellationToken cancellationToken)
         {
-            var response = await _httpClient.GetAsync($"ContactInformations/{contactId}", cancellationToken);
+            var response = await _httpClient.GetAsync($"{requestBaseUri}/{contactId}", cancellationToken);
             if (response.IsSuccessStatusCode)
             {
                 var resultStr = await response.Content.ReadAsStringAsync(cancellationToken);
@@ -37,7 +38,7 @@ namespace AggregatorApi.HttpClients
         public async Task<string> PostAsync(AddContactInformationRequest request, CancellationToken cancellationToken)
         {
             var content = new StringContent(request.ToJson(), Encoding.UTF8, MediaTypeNames.Application.Json);
-            var response = await _httpClient.PostAsync("ContactInformations", content, cancellationToken);
+            var response = await _httpClient.PostAsync(requestBaseUri, content, cancellationToken);
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadAsStringAsync(cancellationToken);
@@ -48,8 +49,21 @@ namespace AggregatorApi.HttpClients
 
         public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            var response = await _httpClient.DeleteAsync($"ContactInformations/{id}", cancellationToken);
+            var response = await _httpClient.DeleteAsync($"{requestBaseUri}/{id}", cancellationToken);
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<string> CreateReportAsync(string id, CancellationToken cancellationToken)
+        {
+            var request = new { Id = id };
+            var content = new StringContent(request.ToJson(), Encoding.UTF8, MediaTypeNames.Application.Json);
+            var response = await _httpClient.PostAsync($"{requestBaseUri}/CreateReport", content, cancellationToken);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync(cancellationToken);
+                return result;
+            }
+            return null;
         }
     }
 }
