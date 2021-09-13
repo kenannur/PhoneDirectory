@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using ContactInformationApi.Data.Faker;
 using ContactInformationApi.Data.Repository;
 using ContactInformationApi.Models;
 using ContactInformationApi.Models.Request;
@@ -88,6 +89,14 @@ namespace ContactInformationApi.Controllers
             };
 
             return Ok(report);
+        }
+
+        [HttpPost("SeedFakeData")]
+        public async Task<IActionResult> SeedFakeDataAsync([FromBody] SeedFakeDataRequest request)
+        {
+            var fakeContactInformas = FakeDataGenerator.PrepareForList(request.ContactIds);
+            await _repository.AddRangeAsync(fakeContactInformas);
+            return Ok(fakeContactInformas.Select(x => x.Id));
         }
     }
 }

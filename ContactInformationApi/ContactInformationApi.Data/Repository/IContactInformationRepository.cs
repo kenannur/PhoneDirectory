@@ -14,5 +14,7 @@ namespace ContactInformationApi.Data.Repository
         int GetPhoneNumbersCountAt(string location);
 
         void DeleteContactInformations(Guid contactId);
+
+        Task AddRangeAsync(IEnumerable<ContactInformation> contactInformations);
     }
 }

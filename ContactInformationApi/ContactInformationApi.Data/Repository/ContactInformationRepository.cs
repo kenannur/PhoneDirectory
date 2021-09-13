@@ -50,5 +50,11 @@ namespace ContactInformationApi.Data.Repository
             Context.ContactInformations.RemoveRange(details);
             Context.SaveChanges();
         }
+
+        public async Task AddRangeAsync(IEnumerable<ContactInformation> contactInformations)
+        {
+            await Context.ContactInformations.AddRangeAsync(contactInformations);
+            await Context.SaveChangesAsync();
+        }
     }
 }
