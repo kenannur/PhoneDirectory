@@ -16,5 +16,7 @@ namespace AggregatorApi.HttpClients
         Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
 
         Task<string> CreateReportAsync(string id, CancellationToken cancellationToken);
+
+        Task<IEnumerable<Guid>> SeedAsync(IEnumerable<Guid> contactIds, CancellationToken cancellationToken);
     }
 }

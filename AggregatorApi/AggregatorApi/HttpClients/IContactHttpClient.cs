@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AggregatorApi.Models;
@@ -17,5 +18,7 @@ namespace AggregatorApi.HttpClients
         Task<string> PutAsync(UpdateContactRequest request, CancellationToken cancellationToken);
 
         Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
+
+        Task<IEnumerable<Guid>> SeedAsync(CancellationToken cancellationToken);
     }
 }

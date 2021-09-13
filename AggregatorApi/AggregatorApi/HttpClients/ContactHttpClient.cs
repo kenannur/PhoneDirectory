@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Mime;
 using System.Text;
@@ -71,6 +72,22 @@ namespace AggregatorApi.HttpClients
         {
             var response = await _httpClient.DeleteAsync($"Contacts/{id}", cancellationToken);
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<IEnumerable<Guid>> SeedAsync(CancellationToken cancellationToken)
+        {
+            var content = new StringContent(new
+            {
+                Count = 50
+            }.ToJson(), Encoding.UTF8, MediaTypeNames.Application.Json);
+            var response = await _httpClient.PostAsync("Contacts/SeedFakeData", content, cancellationToken);
+            if (response.IsSuccessStatusCode)
+            {
+                var resultStr = await response.Content.ReadAsStringAsync(cancellationToken);
+                var result = resultStr.ToObject<IEnumerable<Guid>>();
+                return result;
+            }
+            return null;
         }
     }
 }
