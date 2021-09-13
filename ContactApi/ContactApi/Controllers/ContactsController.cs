@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -74,6 +75,15 @@ namespace ContactApi.Controllers
             await _repository.DeleteAsync(contact, cancellationToken);
             _queueProducer.DeleteContactInformations(id);
             return Ok();
+        }
+
+        [HttpPost("SeedFakeData")]
+        public async Task<IActionResult> SeedFakeDataAsync([FromBody] SeedFakeDataRequest request)
+        {
+            var fakeContacts = FakeDataGenerator.Prepare(request.Count);
+            await _repository.AddRangeAsync(fakeContacts);
+
+            return Ok(fakeContacts.Select(x => x.Id));
         }
     }
 }

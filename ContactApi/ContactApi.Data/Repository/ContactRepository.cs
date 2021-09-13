@@ -1,4 +1,6 @@
-﻿using ContactApi.Data.Context;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using ContactApi.Data.Context;
 using ContactApi.Shared.Entities;
 
 namespace ContactApi.Data.Repository
@@ -9,5 +11,10 @@ namespace ContactApi.Data.Repository
             : base(context)
         { }
 
+        public async Task AddRangeAsync(IEnumerable<Contact> contacts)
+        {
+            await Context.Contacts.AddRangeAsync(contacts);
+            await Context.SaveChangesAsync();
+        }
     }
 }
